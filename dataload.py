@@ -1,3 +1,6 @@
+# This tells matplotlib not to try opening a new window for each plot.
+%matplotlib inline
+
 import pandas as pd
 import numpy as np
 import copy
@@ -93,15 +96,24 @@ doc_view_freq = dict(zip(page_views.document_id.unique(), [len(page_views[page_v
 data['docx_view_freq'] = data['document_id_x'].map(doc_view_freq)
 data.head()
 
-# Making training and test sets
+# Splitting dataset into data and labels
 
 labels = data['clicked']
 labels = labels.values.reshape(-1,1) # check this please! my python is 3.5 and told me to use values.reshape
 del data['clicked']
-data.head()
+
+print 'Labels length:', len(labels)
+print 'data length:', data.shape
+
+# Making training and test sets
 
 train_data = data[:int(.7*len(data))]
-test_data = data[:int(.7*len(data))]
+test_data = data[int(.7*len(data)):]
 
-train_labels = labels[int(.7*len(data)):]
+train_labels = labels[:int(.7*len(data))]
 test_labels = labels[int(.7*len(data)):]
+
+print 'training label shape:', train_labels.shape
+print 'training data shape:', train_data.shape
+print 'test label shape:', test_labels.shape
+print 'test data shape:', test_data.shape
