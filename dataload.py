@@ -11,6 +11,7 @@ from sklearn.linear_model import LogisticRegression
 # load original gansta versions of the data
 # DO NOT OVERWRITE THESE
 clicks_train_og = pd.read_csv("../input/clicks_train.csv")
+clicks_test_og = pd.read_csv("../input/clicks_test.csv")
 promoted_content_og = pd.read_csv("../input/promoted_content.csv")
 doc_cats_og = pd.read_csv("../input/documents_categories.csv")
 doc_ents_og = pd.read_csv("../input/documents_entities.csv")
@@ -26,6 +27,7 @@ doc_ids = set(page_views_og['document_id']) & set(promoted_content_og['document_
 
 events = events_og[events_og['document_id'].isin(doc_ids)]
 clicks_train = clicks_train_og[clicks_train_og['display_id'].isin(events['display_id'])]
+clicks_test = clicks_test_og[clicks_test_og['display_id'].isin(events['display_id'])]
 
 events = events[events['display_id'].isin(clicks_train['display_id'])]
 
